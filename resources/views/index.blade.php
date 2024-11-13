@@ -1,8 +1,10 @@
-<h3>
-    Tasks!
-</h3>
+@extends('layouts.app')
 
-<div>
+@section('title')
+    Tasks!
+@endsection
+
+@section('content')
     {{-- @if (count($tasks)) --}}
     @forelse ($tasks as $task)
         <div>
@@ -12,4 +14,4 @@
         <div>No Tasks!</div>
     @endforelse
     {{-- @endif --}}
-</div>
+@endsection
