@@ -11,9 +11,32 @@
 
     <p>{{ $task->created_at }}</p>
     <p>{{ $task->updated_at }}</p>
+    <P>
+        @if ($task->completed)
+            Completed
+        @else
+            Not Completed
+        @endif
+    </P>
 
     <div>
-        <form action="{{ route('tasks.destory', ['task' => $task->id]) }}" method="POST">
+        <a href="{{ route('tasks.edit', ['task' => $task]) }}">Edit</a>
+    </div>
+
+    <div>
+        <form action="{{ route('tasks.toggle-complete', ['task' => $task]) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <button type="submit">
+                Mark as {{ $task->completed ? 'not completed' : 'completed' }}
+            </button>
+
+        </form>
+    </div>
+
+    <div>
+        <form action="{{ route('tasks.destory', ['task' => $task]) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit">Delete!</button>
