@@ -5,6 +5,7 @@
         <title>Laravel 10 Task list app</title>
         {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
         <style type="text/tailwindcss">
             label {
                 @apply block uppercase text-slate-700 mb-2
@@ -23,9 +24,20 @@
 
     <body class="container mx-auto mt-10 max-w-lg">
         <h1 class="mb-4 text-2xl">@yield('title')</h1>
-        <div>
+        <div x-data="{ flash: true }">
             @if (session()->has('success'))
-                <div>{{ session('success') }}</div>
+                <div class="relative mb-10 rounded border border-green-400 bg-green-200 px-4 py-3 text-lg" role="alert"
+                    x-show="flash">
+                    <strong class="font-bold">Success</strong>
+                    <div>{{ session('success') }}</div>
+
+                    <span class="absolute bottom-0 right-0 top-0 px-4 py-3">
+                        <svg class="h-6 w-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" @click="flash = false" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </span>
+                </div>
             @endif
             @yield('content')
         </div>
